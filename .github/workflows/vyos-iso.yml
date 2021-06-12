@@ -45,13 +45,10 @@ jobs:
                         --debian-mirror http://ftp.us.debian.org/debian/ \
                         --build-type release --version ${BUILD_VERSION}
             sudo make iso
+            sudo make testc
+            sudo make test
       - name: Upload VyOS ISO artifact
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/*.iso
-          asset_name: foo.iso
-          asset_content_type: application/octet-stream
-    
+        uses: actions/upload-artifact@v2
+        with: 
+          name: assets-for-download
+          path: build/*.iso
