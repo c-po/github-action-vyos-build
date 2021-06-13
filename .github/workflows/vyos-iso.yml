@@ -53,6 +53,8 @@ jobs:
                         --debian-mirror http://ftp.us.debian.org/debian/ \
                         --build-type release --version ${BUILD_VERSION} \
                         --custom-package vyos-1x-smoketest
+            cat /proc/cpuinfo
+            sudo dmesg
             sudo make iso
             ls -al build
             env
