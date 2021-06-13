@@ -23,9 +23,8 @@ jobs:
   build-iso:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Build ISO image
         uses: actions/checkout@v2 # Required to mount the Github Workspace to a volume
-      - name: Start container
         uses: addnab/docker-run-action@v3
         with:
           registry: dockerhub
@@ -48,8 +47,7 @@ jobs:
             #sudo make iso                        
             mkdir build
             wget -O build/live-image-amd64.hybrid.iso https://downloads.vyos.io/rolling/current/amd64/vyos-1.4-rolling-202106102016-amd64.iso
-      - name: stage artifact
-        uses: actions/upload-artifact@master
-        with:
+        uses: actions/upload-artifact@master            
           name: vyos-iso
-          path: build/*.iso
+          path: build/live-image-amd64.hybrid.iso
+          if-no-files-found: error
