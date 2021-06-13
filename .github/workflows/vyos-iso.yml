@@ -41,7 +41,10 @@ jobs:
             if [ -z $BUILD_VERSION ]; then
                 BUILD_VERSION=$(date +%Y%m%d%H%M)
             fi
-            echo "::set-output name=ISO_IMAGE::vyos-1.4-rolling-${BUILD_VERSION}-amd64"
+            IMAGE_NAME"vyos-1.4-rolling-${BUILD_VERSION}-amd64"
+            ISO_IMAGE_NAME="${IMAGE_NAME}.iso"
+            echo "::set-output name=IMAGE_NAME::${IMAGE_NAME}"
+            echo "::set-output name=ISO_IMAGE_NAME::${ISO_IMAGE_NAME}"
             
             git clone https://github.com/vyos/vyos-build
             cd vyos-build
@@ -51,7 +54,7 @@ jobs:
             #sudo make iso                        
             mkdir build
             
-            wget -O build/${ISO_IMAGE}.iso https://downloads.vyos.io/rolling/current/amd64/vyos-1.4-rolling-202106102016-amd64.iso
+            wget -O build/${ISO_IMAGE_NAME} https://downloads.vyos.io/rolling/current/amd64/vyos-1.4-rolling-202106102016-amd64.iso
             
       - name: Check dir
         run: |
@@ -64,8 +67,8 @@ jobs:
       - name: Archive
         uses: actions/upload-artifact@master            
         with:
-          name: ${{ steps.build.outputs.ISO_IMAGE }}
-          path: vyos-build/build/${{ steps.build.outputs.ISO_IMAGE }}.iso
+          name: ${{ steps.build.outputs.IMAGE_NAME }}
+          path: vyos-build/build/${{ steps.build.outputs.ISO_IMAGE_NAME }}.iso
           if-no-files-found: error
 
       - name: Test ISO
