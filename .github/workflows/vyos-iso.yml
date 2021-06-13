@@ -52,20 +52,7 @@ jobs:
             ./configure --build-by foo \
                         --debian-mirror http://ftp.us.debian.org/debian/ \
                         --build-type release --version ${BUILD_VERSION}
-            #sudo make iso                        
-            mkdir build
-            
-            wget -O build/${ISO_IMAGE_NAME} https://downloads.vyos.io/rolling/current/amd64/vyos-1.4-rolling-202106102016-amd64.iso
-            ln -s ${ISO_IMAGE_NAME} build/live-image-amd64.hybrid.iso
-            
-      - name: Check dir
-        run: |
-          set -x
-          cd vyos-build
-          ls -al
-          ls -al build
-          pwd
-          env
+            sudo make iso                        
       
       - name: Archive
         uses: actions/upload-artifact@master            
