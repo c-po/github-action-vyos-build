@@ -76,7 +76,6 @@ jobs:
 
       - name: Test ISO
         uses: addnab/docker-run-action@v3
-        id: build
         with:
           registry: dockerhub
           image: vyos/vyos-build:current
