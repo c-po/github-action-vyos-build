@@ -68,7 +68,7 @@ jobs:
         uses: actions/upload-artifact@master            
         with:
           name: ${{ steps.build.outputs.IMAGE_NAME }}
-          path: vyos-build/build/${{ steps.build.outputs.ISO_IMAGE_NAME }}.iso
+          path: vyos-build/build/${{ steps.build.outputs.ISO_IMAGE_NAME }}
           if-no-files-found: error
 
       - name: Test ISO
