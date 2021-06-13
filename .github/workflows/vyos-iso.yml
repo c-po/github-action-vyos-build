@@ -25,7 +25,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2 # Required to mount the Github Workspace to a volume
-      - uses: addnab/docker-run-action@v3
+      - name: Start container
+        uses: addnab/docker-run-action@v3
         with:
           registry: dockerhub
           image: vyos/vyos-build:current
@@ -47,12 +48,8 @@ jobs:
             #sudo make iso                        
             mkdir build
             wget -O build/live-image-amd64.hybrid.iso https://downloads.vyos.io/rolling/current/amd64/vyos-1.4-rolling-202106102016-amd64.iso
-            
-            # increase login timeout
-            sed -i 's/timeout=300/timeout=600/' scripts/check-qemu-install
-            sudo make test
-      - name: Upload VyOS ISO artifact
-        uses: actions/upload-artifact@v2
-        with: 
-          name: assets-for-download
-          path: build/*.iso
+      - name: stage artifact
+            uses: actions/upload-artifact@master
+            with:
+              name: vyos-iso
+              path: build/*.iso
