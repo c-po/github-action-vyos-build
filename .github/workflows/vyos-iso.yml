@@ -39,10 +39,10 @@ jobs:
             fi
             BUILD_VERSION=${{ github.event.inputs.BUILD_VERSION }}
             if [ -z $BUILD_VERSION ]; then
-                BUILD_VERSION=$(date +%Y%m%d%H%M)
+                BUILD_VERSION=vyos-1.4-rolling-$(date +%Y%m%d%H%M)-amd64
             fi
-            IMAGE_NAME="vyos-1.4-rolling-${BUILD_VERSION}-amd64"
-            ISO_IMAGE_NAME="${IMAGE_NAME}.iso"
+            IMAGE_NAME="${BUILD_VERSION}"
+            ISO_IMAGE_NAME="${BUILD_VERSION}.iso"
             echo "::set-output name=IMAGE_NAME::${IMAGE_NAME}"
             echo "::set-output name=ISO_IMAGE_NAME::${ISO_IMAGE_NAME}"
             
