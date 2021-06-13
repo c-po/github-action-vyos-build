@@ -51,7 +51,8 @@ jobs:
             cd vyos-build
             ./configure --build-by foo \
                         --debian-mirror http://ftp.us.debian.org/debian/ \
-                        --build-type release --version ${BUILD_VERSION}
+                        --build-type release --version ${BUILD_VERSION} \
+                        --custom-package vyos-1x-smoketest
             sudo make iso
             ls -al build
             env
