@@ -42,7 +42,7 @@ jobs:
                 BUILD_VERSION=$(date +%Y%m%d%H%M)
             fi
             echo "::set-output name=ISO_IMAGE::vyos-1.4-rolling-${BUILD_VERSION}-amd64"
-            echo $ISO_IMAGE
+            
             git clone https://github.com/vyos/vyos-build
             cd vyos-build
             ./configure --build-by foo \
@@ -50,7 +50,8 @@ jobs:
                         --build-type release --version ${BUILD_VERSION}
             #sudo make iso                        
             mkdir build
-            wget -O build/${{ steps.build.outputs.ISO_IMAGE }}.iso https://downloads.vyos.io/rolling/current/amd64/vyos-1.4-rolling-202106102016-amd64.iso
+            
+            wget -O build/${ISO_IMAGE}.iso https://downloads.vyos.io/rolling/current/amd64/vyos-1.4-rolling-202106102016-amd64.iso
             
       - name: Check dir
         run: |
@@ -59,7 +60,6 @@ jobs:
           ls -al build
           pwd
           env
-          
       
       - name: Archive
         uses: actions/upload-artifact@master            
