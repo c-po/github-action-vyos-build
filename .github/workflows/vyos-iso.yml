@@ -51,7 +51,10 @@ jobs:
             ./configure --build-by foo \
                         --debian-mirror http://ftp.us.debian.org/debian/ \
                         --build-type release --version ${BUILD_VERSION}
-            sudo make iso                        
+            sudo make iso
+            ls -al
+            ls -al build
+            env
       
       - name: Archive
         uses: actions/upload-artifact@master            
