@@ -42,7 +42,7 @@ jobs:
                 BUILD_VERSION="1.4-rolling-$(date +%Y%m%d%H%M)"
             fi
             IMAGE_NAME="vyos-${BUILD_VERSION}-amd64"
-            ISO_IMAGE_NAME="${BUILD_VERSION}.iso"
+            ISO_IMAGE_NAME="${IMAGE_NAME}.iso"
             echo "::set-output name=IMAGE_NAME::${IMAGE_NAME}"
             echo "::set-output name=ISO_IMAGE_NAME::${ISO_IMAGE_NAME}"
             
