@@ -16,7 +16,7 @@ on:
         default: 'autobuild@vyos.net'
         required: true
       BUILD_VERSION:
-        description: 'Version number (release builds only)'
+        description: 'Version number (if empty 1.4-rolling-DATE is used)'
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -33,7 +33,6 @@ jobs:
           image: vyos/vyos-build:current
           options: -v ${{ github.workspace }}:/vyos -w /vyos --privileged
           run: |
-            set -x
             BUILD_BY=${{ github.event.inputs.BUILD_BY }}
             if [ -z $BUILD_BY ]; then
                 BUILD_BY="autobuild@vyos.net"
