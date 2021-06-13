@@ -33,6 +33,7 @@ jobs:
           image: vyos/vyos-build:current
           options: -v ${{ github.workspace }}:/vyos -w /vyos --privileged --sysctl net.ipv6.conf.lo.disable_ipv6=0 -e GOSU_UID=1006 -e GOSU_GID=1006
           run: |
+            set -x
             BUILD_BY=${{ github.event.inputs.BUILD_BY }}
             if [ -z $BUILD_BY ]; then
                 BUILD_BY="autobuild@vyos.net"
@@ -41,7 +42,7 @@ jobs:
             if [ -z $BUILD_VERSION ]; then
                 BUILD_VERSION=$(date +%Y%m%d%H%M)
             fi
-            IMAGE_NAME"vyos-1.4-rolling-${BUILD_VERSION}-amd64"
+            IMAGE_NAME="vyos-1.4-rolling-${BUILD_VERSION}-amd64"
             ISO_IMAGE_NAME="${IMAGE_NAME}.iso"
             echo "::set-output name=IMAGE_NAME::${IMAGE_NAME}"
             echo "::set-output name=ISO_IMAGE_NAME::${ISO_IMAGE_NAME}"
@@ -58,6 +59,7 @@ jobs:
             
       - name: Check dir
         run: |
+          set -x
           cd vyos-build
           ls -al
           ls -al build
