@@ -61,5 +61,5 @@ jobs:
         uses: actions/upload-artifact@master            
         with:
           name: vyos-iso
-          path: build/live-image-amd64.hybrid.iso
+          path: **/build/live-image-amd64.hybrid.iso
           if-no-files-found: error
