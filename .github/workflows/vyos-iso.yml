@@ -47,7 +47,13 @@ jobs:
             #sudo make iso                        
             mkdir build
             wget -O build/live-image-amd64.hybrid.iso https://downloads.vyos.io/rolling/current/amd64/vyos-1.4-rolling-202106102016-amd64.iso
+            
+     - name: Check dir
+       run: ls -al build
+       
+     - name: Archive
         uses: actions/upload-artifact@master            
+        with:
           name: vyos-iso
           path: build/live-image-amd64.hybrid.iso
           if-no-files-found: error
