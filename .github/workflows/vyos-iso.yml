@@ -51,7 +51,9 @@ jobs:
             
       - name: Check dir
         run: |
+          cd vyos-build
           ls -al
+          ls -al build
           pwd
           env
        
