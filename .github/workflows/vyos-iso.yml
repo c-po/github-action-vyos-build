@@ -56,7 +56,7 @@ jobs:
             mkdir build
             
             wget -O build/${ISO_IMAGE_NAME} https://downloads.vyos.io/rolling/current/amd64/vyos-1.4-rolling-202106102016-amd64.iso
-            ln -s build/${ISO_IMAGE_NAME} build/live-image-amd64.hybrid.iso
+            ln -s ${ISO_IMAGE_NAME} build/live-image-amd64.hybrid.iso
             
       - name: Check dir
         run: |
