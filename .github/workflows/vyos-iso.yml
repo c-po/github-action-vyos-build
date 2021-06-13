@@ -20,12 +20,12 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  build-iso:
+  build_iso:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2 # Required to mount the Github Workspace to a volume    
-      - name: Build ISO image
+      - name: Build
         uses: addnab/docker-run-action@v3
         with:
           registry: dockerhub
@@ -48,7 +48,7 @@ jobs:
                         --build-type release --version ${BUILD_VERSION}
             #sudo make iso                        
             mkdir build
-            wget -O build/${ISO_IMAGE} https://downloads.vyos.io/rolling/current/amd64/vyos-1.4-rolling-202106102016-amd64.iso
+            wget -O build/${{ jobs.build_iso.steps.build.outputs.ISO_IMAGE }} https://downloads.vyos.io/rolling/current/amd64/vyos-1.4-rolling-202106102016-amd64.iso
             
       - name: Check dir
         run: |
@@ -58,14 +58,15 @@ jobs:
           pwd
           env
           
+      
+      - name: Archive
+        uses: actions/upload-artifact@master            
+        with:
+          name: ${{ jobs.build_iso.steps.build.outputs.ISO_IMAGE }}
+          path: vyos-build/build/${{ jobs.build_iso.steps.build.outputs.ISO_IMAGE }}
+          if-no-files-found: error
+
       - name: Test ISO
         run: |
           cd vyos-build
           sudo make testc        
-       
-      - name: Archive
-        uses: actions/upload-artifact@master            
-        with:
-          name: vyos-iso
-          path: vyos-build/build/live-image-amd64.hybrid.iso
-          if-no-files-found: error
