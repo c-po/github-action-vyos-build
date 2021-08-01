@@ -53,11 +53,11 @@ jobs:
                         --debian-mirror http://ftp.us.debian.org/debian/ \
                         --build-type release --version ${BUILD_VERSION} \
                         --custom-package vyos-1x-smoketest
-            cat /proc/cpuinfo
-            sudo dmesg
             sudo make iso
-            ls -al build
-            env
+            if [ ! -f build/*.iso ]; then
+                echo "ISO build failed. Game Over!"
+                exit 1
+            fi
       
       - name: Test ISO
         uses: addnab/docker-run-action@v3
