@@ -59,13 +59,6 @@ jobs:
             ls -al build
             env
       
-      - name: Archive
-        uses: actions/upload-artifact@master            
-        with:
-          name: ${{ steps.build.outputs.IMAGE_NAME }}
-          path: vyos-build/build/${{ steps.build.outputs.ISO_IMAGE_NAME }}
-          if-no-files-found: error
-
       - name: Test ISO
         uses: addnab/docker-run-action@v3
         with:
@@ -74,4 +67,13 @@ jobs:
           options: -v ${{ github.workspace }}:/vyos -w /vyos --privileged --sysctl net.ipv6.conf.lo.disable_ipv6=0
           run: |
             cd vyos-build
-            sudo make testc        
+            sudo make testc          
+      
+      - name: Archive
+        uses: actions/upload-artifact@master            
+        with:
+          name: ${{ steps.build.outputs.IMAGE_NAME }}
+          path: vyos-build/build/${{ steps.build.outputs.ISO_IMAGE_NAME }}
+          if-no-files-found: error
+
+  
